@@ -1,8 +1,13 @@
 {
   "name": "novel",
   "version": "0.1.0",
+  "author": "MdnyzZ",
+  "description": "小说阅读器",
   "private": true,
+  "main": "electron.js",
   "scripts": {
+    "e:build": "vue-cli-service electron:build",
+    "e:serve": "vue-cli-service electron:serve",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
