@@ -1,9 +1,17 @@
-import { app, shell, BrowserWindow } from 'electron'
+import { app, shell, BrowserWindow, globalShortcut, ipcMain } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
+const fs = require('fs')
+const os = require('os')
 
 function createWindow(): void {
+  globalShortcut.register('f5', function () {
+    mainWindow.reload()
+  })
+  globalShortcut.register('CommandOrControl+R', function () {
+    mainWindow.reload()
+  })
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     width: 900,
@@ -69,3 +77,9 @@ app.on('window-all-closed', () => {
 
 // In this file you can include the rest of your app"s specific main process
 // code. You can also put them in separate files and require them here.
+ipcMain.handle('getFiles', async function (event, path) {
+  console.log('event', event)
+  const result = await fs.readFileSync(path, 'utf8')
+
+  return result.split(os.EOL)
+})

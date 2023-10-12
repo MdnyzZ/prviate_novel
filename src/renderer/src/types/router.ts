@@ -24,5 +24,5 @@ export interface MenuType {
   name: string
   path: string
   title: string
-  children: MenuType
+  children: MenuType[]
 }

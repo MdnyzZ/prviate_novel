@@ -5,7 +5,7 @@
         <Menu />
       </div>
     </a-layout-sider>
-    <a-layout-content>
+    <a-layout-content class='p-6'> 
       <router-view></router-view>
     </a-layout-content>
   </a-layout>
