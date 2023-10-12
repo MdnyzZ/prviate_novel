@@ -1,6 +1,8 @@
 import { resolve } from 'path'
 import { defineConfig, externalizeDepsPlugin } from 'electron-vite'
+import { vitePluginForArco } from '@arco-plugins/vite-vue'
 import vue from '@vitejs/plugin-vue'
+import vueJsx from '@vitejs/plugin-vue-jsx'
 
 export default defineConfig({
   main: {
@@ -11,10 +13,21 @@ export default defineConfig({
   },
   renderer: {
     resolve: {
-      alias: {
-        '@renderer': resolve('src/renderer/src')
-      }
+      alias: [
+        {
+          find: '@renderer',
+          replacement: resolve('src/renderer/src')
+        },
+        {
+          find: 'vue',
+          replacement: 'vue/dist/vue.esm-bundler.js', // compile template
+        },
+      ]
     },
-    plugins: [vue()]
+    plugins: [
+      vue(),
+      vueJsx(),
+      vitePluginForArco({ style: 'css' })
+    ]
   }
 })
