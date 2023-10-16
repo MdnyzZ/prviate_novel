@@ -1,5 +1,5 @@
 import type { RouteRecordNormalized } from 'vue-router'
-import { MenuType } from '@renderer/types/router'
+import { MenuType } from '@commonTypes/router'
 
 const modules = import.meta.glob('./modules/*.ts', { eager: true })
 import { RouterToMenuList } from './common'

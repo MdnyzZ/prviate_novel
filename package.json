@@ -22,7 +22,8 @@
   "dependencies": {
     "@electron-toolkit/preload": "^2.0.0",
     "@electron-toolkit/utils": "^2.0.0",
-    "electron-updater": "^6.1.1"
+    "electron-updater": "^6.1.1",
+    "sqlite3": "^5.1.6"
   },
   "devDependencies": {
     "@arco-design/web-vue": "^2.52.0",
@@ -46,6 +47,7 @@
     "eslint-plugin-vue": "^9.17.0",
     "less": "^4.2.0",
     "mitt": "^3.0.1",
+    "moment": "^2.29.4",
     "nprogress": "^0.2.0",
     "os": "^0.1.2",
     "pinia": "^2.1.6",

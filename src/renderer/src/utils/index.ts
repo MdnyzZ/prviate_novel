@@ -1,4 +1,4 @@
-import { AnyObject } from '@renderer/types/common';
+import { AnyObject } from '@commonTypes/common';
 
 type TargetContext = '_self' | '_parent' | '_blank' | '_top';
 

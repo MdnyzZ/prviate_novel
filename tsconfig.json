@@ -1,4 +1,11 @@
 {
+  "compilerOptions": {
+    // linting
+    // 未使用变量不报错
+    "noUnusedLocals": false,
+    // 未使用函数不报错
+    "noUnusedParameters": false
+  },
   "files": [],
   "references": [{ "path": "./tsconfig.node.json" }, { "path": "./tsconfig.web.json" }]
 }
