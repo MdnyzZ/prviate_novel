@@ -19,19 +19,11 @@ export default defineConfig({
           replacement: resolve('src/renderer/src')
         },
         {
-          find: '@types',
-          replacement: resolve('src/types')
-        },
-        {
           find: 'vue',
-          replacement: 'vue/dist/vue.esm-bundler.js', // compile template
-        },
+          replacement: 'vue/dist/vue.esm-bundler.js' // compile template
+        }
       ]
     },
-    plugins: [
-      vue(),
-      vueJsx(),
-      vitePluginForArco({ style: 'css' })
-    ]
+    plugins: [vue(), vueJsx(), vitePluginForArco({ style: 'css' })]
   }
 })

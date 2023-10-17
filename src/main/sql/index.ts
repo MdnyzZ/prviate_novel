@@ -35,10 +35,11 @@ export const createDataTable = () => {
           if not exists 
             book_list (
               id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-              title varchar(64) DEFAULT null,
+              title NTEXT DEFAULT null,
               image varcar(64) DEFAULT null,
               create_time varchar(64) DEFAULT null,
-              path varchar(2000) DEFAULT null
+              path varchar(2000) DEFAULT null,
+              directory NTEXT DEFAULT null
             )
         `
       )

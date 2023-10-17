@@ -4,10 +4,20 @@
     "electron.vite.config.*",
     "src/main/**/*",
     "src/preload/*",
-    "src/commonTypes/**/*"
+    "src/commonTypes/**/*",
+    "src/main/**/*",
   ],
   "compilerOptions": {
+    "baseUrl": ".",
     "composite": true,
-    "types": ["electron-vite/node"]
+    "types": ["electron-vite/node"],
+    "paths": {
+      "@renderer/*": [
+        "src/renderer/src/*"
+      ],
+      "@commonTypes/*": [
+        "src/commonTypes/*"
+      ]
+    }
   }
 }

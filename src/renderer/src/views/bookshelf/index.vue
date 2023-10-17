@@ -69,7 +69,10 @@ const goDetail = (book: booksListType) => {
   console.log('book', book)
   // todo 跳转到阅读页面
   router.push({
-    name: 'bookDetails'
+    name: 'bookDetails',
+    query: {
+      ...book
+    }
   })
 }
 
@@ -81,13 +84,16 @@ const getList = async ({ page = 1, pageSize = 10 }) => {
   })
 
   loading.value.load = false
-  if (result.success) books.value = result.data
+  if (result.success) books.value = result.data.list
 }
 const importBookFn = async () => {
   loading.value.import = true
   const result = await ipcRenderer.invoke('importBook')
   loading.value.import = false
-  if (result.success) Message.success('导入书籍成功')
+  if (result.success) {
+    Message.success('导入书籍成功')
+    getList({ page: 1, pageSize: 9999 })
+  }
 }
 
 onMounted(() => {
