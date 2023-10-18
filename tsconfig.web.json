@@ -17,6 +17,9 @@
       ],
       "@commonTypes/*": [
         "src/commonTypes/*"
+      ],
+      "@mainsPage/*": [
+        "src/main/*"
       ]
     }
   }

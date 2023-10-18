@@ -1,3 +1,5 @@
+import { IAnyResponse, listModeType } from '@commonTypes/apiTypes'
+
 export const tocRule = [
   {
     id: 1,
@@ -170,3 +172,32 @@ export const ttsArr = [
     name: '思必驰 精品男声 郭德纲'
   }
 ]
+
+export const RequestDefaultErrResult = (params: IAnyResponse): IAnyResponse => {
+  return {
+    code: 400,
+    msg: '系统错误',
+    success: false,
+    data: null,
+    ...params
+  }
+}
+export const RequestDefaultSucResult = (params: IAnyResponse): IAnyResponse => {
+  return {
+    code: 200,
+    msg: '加载成功',
+    success: true,
+    data: null,
+    ...params
+  }
+}
+
+export const DefaultListApiData = (params: listModeType<any[]>): listModeType<any[]> => {
+  return {
+    list: [],
+    total: 10,
+    page: 1,
+    pageSize: 10,
+    ...params
+  }
+}

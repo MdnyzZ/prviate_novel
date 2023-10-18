@@ -3,21 +3,29 @@ const os = require('os')
 const path = require('path')
 import { ipcMain, dialog, app } from 'electron'
 import { tocRules } from '../common/index'
-import { addBookList, getBookList } from '../sql/sql-api/bookList'
+import { addBookList, getBookList, delBookList } from '../sql/sql-api/bookList'
+import { bookListParams } from '@commonTypes/apiRequest'
+import { bookListItemRightClick } from '../menu'
 
 let bookStorePath = path.join(app.getAppPath(), '/resources/book')
 
 // 内部使用API
 export const initIpcMainHandle = () => {
   // 读取txt
-  ipcMain.handle('getFiles', async function (_event, path) {
+  ipcMain.handle('getFiles', async function (_event, path: string): Promise<string> {
     const result = await fs.readFileSync(path, 'utf8')
 
     return result.split(os.EOL)
   })
 
+  // bookRight
+  ipcMain.handle('bookRightClick', function () {
+    bookListItemRightClick.popup()
+  })
+
+  // book模块
   // 导入书籍
-  ipcMain.handle('importBook', async function () {
+  ipcMain.handle('/book/add', async function () {
     // 选择要读取的文件
     const dialogResult = await dialog.showOpenDialog({
       title: '选择导入的文件',
@@ -38,7 +46,6 @@ export const initIpcMainHandle = () => {
       const reg = tocRules.find((item) => new RegExp(item, 'm').test(bookCtn))
       const fileDer = `${bookStorePath}/${title}`
       if (reg) {
-
         const menu = bookCtn.match(new RegExp(reg, 'mg'))?.map((item) => item.trim())
         const result = await addBookList({
           title,
@@ -57,7 +64,7 @@ export const initIpcMainHandle = () => {
           let ctn = ''
 
           if (_last.length) {
-            if (index + 1 > menuLen) {
+            if (index + 1 >= menuLen) {
               // 最后一个章节
               ctn = _last
             } else {
@@ -65,9 +72,10 @@ export const initIpcMainHandle = () => {
               ctn = _last.split(nextPart)[0]
             }
           }
-          optData = _last
           if (ctn) {
             await fs.appendFileSync(`${fileDer}/${nowPart}.txt`, ctn)
+          } else {
+            console.log(nowPart, '无数据')
           }
         })
 
@@ -92,13 +100,33 @@ export const initIpcMainHandle = () => {
   })
 
   // 获取文件列表
-  ipcMain.handle('getBookList', async function (_event, { page = 1, pageSize = 10, id = '' }) {
-    const params = {
-      page,
-      pageSize,
-      id
+  ipcMain.handle(
+    '/book/getList',
+    async function (_event, { page = 1, pageSize = 10, id = 0 }: bookListParams) {
+      const params = {
+        page,
+        pageSize,
+        id
+      }
+      const result = await getBookList(params)
+      return result
     }
-    const result = await getBookList(params)
+  )
+
+  // 删除数据
+  ipcMain.handle('/book/del', async function (_event, ids: string) {
+    const result = await delBookList({ ids })
+
+    if (result.success) {
+      // 删除成功了， todo判断是否要把书籍存储的数据删除掉，现在先处理为删除
+      function deleteDirectory(directoryPath) {
+        fs.rm(directoryPath, { recursive: true, force: true }, (err) => {
+          if (err) throw err
+          console.log('删除成功', directoryPath)
+        })
+      }
+      result.data!.forEach((item) => deleteDirectory(item.path))
+    }
     return result
   })
 }
