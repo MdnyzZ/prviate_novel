@@ -29,7 +29,8 @@ export const createDataTable = () => {
   return new Promise((resolve) => {
     const db = connectDatabase()
     db.serialize(() => {
-      // 测试数据库
+      // 初始化数据库
+      // todo 书签（章节文件名、关键文本），最近阅读位置（章节文件名、关键文本）
       db.run(
         `create table 
           if not exists 

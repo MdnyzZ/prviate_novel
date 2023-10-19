@@ -24,6 +24,7 @@
     "@electron-toolkit/utils": "^2.0.0",
     "electron-updater": "^6.1.1",
     "lodash": "^4.17.21",
+    "shortcuts": "^3.0.1",
     "sqlite3": "^5.1.6"
   },
   "devDependencies": {

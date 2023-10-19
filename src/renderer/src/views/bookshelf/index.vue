@@ -71,6 +71,8 @@ import defaultCoverImg from '@renderer/assets/image/default_cover_img.jpeg'
 import { reduce } from 'lodash'
 import { Modal } from '@arco-design/web-vue'
 
+const { ipcRenderer } = window.electron
+
 const router = useRouter()
 const state = reactive<{
   books: bookListType[]
@@ -88,6 +90,8 @@ const state = reactive<{
 })
 // 跳转到阅读页面
 const goDetail = (book: bookListType) => {
+  ipcRenderer.invoke('openThiefBookWindow', book.id)
+  return 
   router.push({
     name: 'bookDetails',
     query: {

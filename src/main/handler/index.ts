@@ -1,7 +1,8 @@
 const fs = require('fs')
 const os = require('os')
 const path = require('path')
-import { ipcMain, dialog, app } from 'electron'
+import { ipcMain, dialog, app, BrowserWindow } from 'electron'
+import { is } from '@electron-toolkit/utils'
 import { tocRules } from '../common/index'
 import { addBookList, getBookList, delBookList } from '../sql/sql-api/bookList'
 import { bookListParams } from '@commonTypes/apiRequest'
@@ -12,6 +13,7 @@ let bookStorePath = path.join(app.getAppPath(), '/resources/book')
 // 内部使用API
 export const initIpcMainHandle = () => {
   // 读取txt
+  // todo 判断文件的编码格式，转码成utf-8的字符串后返回出去
   ipcMain.handle('getFiles', async function (_event, path: string): Promise<string> {
     const result = await fs.readFileSync(path, 'utf8')
 
@@ -21,6 +23,39 @@ export const initIpcMainHandle = () => {
   // bookRight
   ipcMain.handle('bookRightClick', function () {
     bookListItemRightClick.popup()
+  })
+
+  ipcMain.handle('openThiefBookWindow', function (_event, id) {
+    // 生成一个子窗口
+    let thiefBookWindows = new BrowserWindow({
+      width: 400,
+      height: 470,
+      autoHideMenuBar: true,
+      frame: false,
+      transparent: true,
+      resizable: true,
+      movable: true,
+      webPreferences: {
+        preload: path.join(__dirname, '../preload/index.js'),
+        sandbox: false
+      }
+    })
+    if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
+      thiefBookWindows.loadURL(process.env['ELECTRON_RENDERER_URL'] + `#/thiefBookReader?id=${id}`)
+      // thiefBookWindows.webContents.openDevTools()
+    } else {
+      thiefBookWindows.loadFile(
+        path.join(
+          __dirname,
+          '../renderer/index.html#/thiefBookReader' + `#/thiefBookReader?id=${id}`
+        )
+      )
+    }
+  })
+
+  ipcMain.handle('setHasShadow', function (_event, wins) {
+    const bol = wins.hasShadow()
+    wins.setHasShadow(!bol)
   })
 
   // book模块

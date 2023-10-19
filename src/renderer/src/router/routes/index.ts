@@ -16,6 +16,7 @@ function formatModules(_modules: any, result: RouteRecordNormalized[]) {
 
 const appRoutes: RouteRecordNormalized[] = formatModules(modules, [])
 const menuList: MenuType[] = RouterToMenuList(appRoutes)
+console.log('appRoutes', appRoutes)
 console.log('menuList', menuList)
 export { appRoutes, menuList }
 export type {
