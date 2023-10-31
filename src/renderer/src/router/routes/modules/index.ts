@@ -1,12 +1,12 @@
 import { DEFAULT_LAYOUT } from '../common';
 import { AppRouteRecordRaw } from '@commonTypes/router';
 
-const DASHBOARD: AppRouteRecordRaw = {
+const READER: AppRouteRecordRaw = {
   path: '/layout',
   name: 'layout',
   component: DEFAULT_LAYOUT,
   meta: {
-    locale: '基础',
+    locale: '阅读',
     icon: 'icon-dashboard',
     order: 1,
     isMenu: true
@@ -34,4 +34,4 @@ const DASHBOARD: AppRouteRecordRaw = {
   ],
 };
 
-export default DASHBOARD;
+export default READER;

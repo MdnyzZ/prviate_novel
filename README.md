@@ -14,6 +14,7 @@ An Electron application with Vue and TypeScript
 
 ### todoList
 
+- 日志系统
 - 内部静默选项持久化设置
   - 阅读器的字体、间距、翻页模式、样式等
   - 窗口resize后下次打开时的大小（shief窗口大小独立配置）

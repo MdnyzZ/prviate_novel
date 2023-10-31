@@ -6,9 +6,33 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 
 export default defineConfig({
   main: {
+    resolve: {
+      alias: [
+        {
+          find: '@commonTypes',
+          replacement: resolve('src/commonTypes')
+        },
+        {
+          find: '@mainsPage',
+          replacement: resolve('src/main')
+        }
+      ]
+    },
     plugins: [externalizeDepsPlugin()]
   },
   preload: {
+    resolve: {
+      alias: [
+        {
+          find: '@commonTypes',
+          replacement: resolve('src/commonTypes')
+        },
+        {
+          find: '@mainsPage',
+          replacement: resolve('src/main')
+        }
+      ]
+    },
     plugins: [externalizeDepsPlugin()]
   },
   renderer: {
@@ -17,6 +41,14 @@ export default defineConfig({
         {
           find: '@renderer',
           replacement: resolve('src/renderer/src')
+        },
+        {
+          find: '@commonTypes',
+          replacement: resolve('src/commonTypes')
+        },
+        {
+          find: '@mainsPage',
+          replacement: resolve('src/main')
         },
         {
           find: 'vue',

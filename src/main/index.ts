@@ -6,6 +6,8 @@ import icon from '../../resources/icon.png?asset'
 import { initIpcMainHandle } from './handler/index'
 
 import { createDataTable } from './sql'
+import * as cheerio from 'cheerio'
+import { tocRules } from './common/index'
 
 // 初始化本地数据库
 createDataTable()
@@ -20,10 +22,8 @@ function createWindow(): void {
   })
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    // width: 900,
-    // height: 670,
-    width: 375,
-    height: 675,
+    width: 900,
+    height: 670,
     show: false,
     autoHideMenuBar: true,
     ...(process.platform === 'linux' ? { icon } : {}),

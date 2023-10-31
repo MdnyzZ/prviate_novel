@@ -22,10 +22,14 @@
   "dependencies": {
     "@electron-toolkit/preload": "^2.0.0",
     "@electron-toolkit/utils": "^2.0.0",
+    "cheerio": "^1.0.0-rc.12",
     "electron-updater": "^6.1.1",
     "lodash": "^4.17.21",
+    "pinia-plugin-persistedstate": "^3.2.0",
+    "puppeteer": "^21.4.1",
     "shortcuts": "^3.0.1",
-    "sqlite3": "^5.1.6"
+    "sqlite3": "^5.1.6",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@arco-design/web-vue": "^2.52.0",

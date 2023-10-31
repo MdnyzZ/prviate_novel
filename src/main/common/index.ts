@@ -173,7 +173,7 @@ export const ttsArr = [
   }
 ]
 
-export const RequestDefaultErrResult = (params: IAnyResponse): IAnyResponse => {
+export const RequestDefaultErrResult = (params: IAnyResponse = {}): IAnyResponse => {
   return {
     code: 400,
     msg: '系统错误',
@@ -182,7 +182,7 @@ export const RequestDefaultErrResult = (params: IAnyResponse): IAnyResponse => {
     ...params
   }
 }
-export const RequestDefaultSucResult = (params: IAnyResponse): IAnyResponse => {
+export const RequestDefaultSucResult = (params: IAnyResponse = {}): IAnyResponse => {
   return {
     code: 200,
     msg: '加载成功',
@@ -192,7 +192,7 @@ export const RequestDefaultSucResult = (params: IAnyResponse): IAnyResponse => {
   }
 }
 
-export const DefaultListApiData = (params: listModeType<any[]>): listModeType<any[]> => {
+export const DefaultListApiData = (params: listModeType<any[]> = {}): listModeType<any[]> => {
   return {
     list: [],
     total: 10,
